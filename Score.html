@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <title>tada</title>
+        <link rel="stylesheet" type="text/css" href="assets/styles/template.css" />
+    </head>
+    
+    <body>
+        <div id="container">
+            <header class="content">
+                <h1><span id="gameName"></span></h1>
+        </header>
+        <a href="note.xml">note.xml</a>
+        </div>      
+        <script>
+			if (window.XMLHttpRequest)
+			  {
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			xmlhttp.open("GET","note.xml",false);
+			xmlhttp.send();
+			xmlDoc=xmlhttp.responseXML;
+			
+			document.getElementById("gameName").innerHTML=xmlDoc.getElementsByTagName("gameName")[0].childNodes[0].nodeValue;
+		</script>
+    </body>
+</html>
