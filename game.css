@@ -19,3 +19,8 @@ footer{
 	width:95%;
 }
 	
+input[type=number] {
+    padding: 4px;
+    font-size: 1.1em;
+    border: 1px solid #d5d5d5;
+}
