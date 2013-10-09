@@ -75,7 +75,7 @@ button, .button, input[type=button] {
 button:hover, .button:hover, input[type=button]:hover { background: #5180d6; cursor: pointer; }
 button:active, .button:active, input[type=button]:active { background: #366ccf; }
 
-input[type=text] {
+input[type=text], input[type=number] {
     padding: 4px;
     font-size: 1.1em;
     border: 1px solid #d5d5d5;
@@ -86,8 +86,31 @@ input[type=text]:hover, input[type=text]:focus {
 
 label { font-size: 1.1em; }
 
+
+/* Utility Styles
+******************************************************* Utility Styles ***/
+
 /* The following classes were made for use with the X / star / check icons,
     so they can be neatly placed alongside form controls. */
 .smallIcon { position: relative; top: 4px; }
 .mediumIcon { position: relative; top: 10px; }
 .largeIcon { position: relative; top: 26px; }
+
+
+/* For different colored buttons, just add the class name of the color you'd like:
+    red, blue, yellow, gray; */
+button.red, .button.red, input[type=button].red { background: #8e1c1c; }
+button.red:hover, .button.red:hover, input[type=button].red:hover { background: #b82525; }
+button.red:active, .button.red:active, input[type=button].red:active { background: #9c1f1f; }
+
+button.green, .button.green, input[type=button].green { background: #42a25b; }
+button.green:hover, .button.green:hover, input[type=button].green:hover { background: #5bbc74; }
+button.green:active, .button.green:active, input[type=button].green:active { background: #3d9654; }
+
+button.yellow, .button.yellow, input[type=button].yellow { background: #e7a71c; }
+button.yellow:hover, .button.yellow:hover, input[type=button].yellow:hover { background: #ecb94a; }
+button.yellow:active, .button.yellow:active, input[type=button].yellow:active { background: #db9d17; }
+
+button.gray, .button.gray, input[type=button].gray { background: #747474; }
+button.gray:hover, .button.gray:hover, input[type=button].gray:hover { background: #858585; }
+button.gray:active, .button.gray:active, input[type=button].gray:active { background: #636363; }
