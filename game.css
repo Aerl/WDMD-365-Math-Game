@@ -1,0 +1,21 @@
+S#taxCalc br {
+    clear: left; }
+	
+#gameScreen, #scoreScreen{
+visibility:hidden;
+}
+#mainScreen,#gameScreen {
+	background: white;
+	
+}
+#mainScreen{
+	z-index: 10;
+}
+	
+footer{
+	position:relative;
+	bottom:0;
+	text-align:right;
+	width:95%;
+}
+	
