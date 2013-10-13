@@ -31,6 +31,9 @@ var yellow = 0;
 var blue = 0;
 var count = 0;
 var score = 0;
+var isFlower = true;
+var isRobot = false;
+
 //--------game screen buttons click-------
 var button_addRed_click = function() {
 	red++;
@@ -121,22 +124,26 @@ function button_next_click() {
 		default:
 		  generateHardFractions();
 	}
+	changePicture();
 }
 //--------navigations click-------
 var button_easy_click = function () {
 	navigateScreen(button_easy_click);
 	mode = 1;
 	generateEasyFractions();
+	changePicture();
 }
 var button_medium_click = function () {
 	navigateScreen(button_medium_click);
 	mode = 2;
 	generateMediumFractions();
+	changePicture();
 }
 var button_hard_click = function () {
 	navigateScreen(button_hard_click);
 	mode = 3;
 	generateHardFractions();
+	changePicture();
 }
 var button_back_click = function () {
 	navigateScreen(button_back_click);
@@ -264,4 +271,17 @@ function fraction(x) {
     } while (Math.abs(x-h1/k1) > x*tolerance);
     
     return h1+"/"+k1;
+}
+
+function changePicture() {
+	var imgSrc = "images/";	
+	if(isFlower){		
+		imgSrc = imgSrc + "flower";
+	}
+	else if(isRobot)
+	{
+		imgSrc = imgSrc + "robot";
+	}	
+	imgSrc = imgSrc + score + ".png";	
+	document.getElementById("rewardPicture").src=imgSrc;
 }
