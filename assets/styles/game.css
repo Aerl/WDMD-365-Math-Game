@@ -1,0 +1,7 @@
+#gameScreen, #scoreScreen{
+	display:none;
+}
+
+.left { float: left; }
+.right { float: right; }
+.clearFloat { clear: both; height: 1px; width: 1px; margin: 0; }
