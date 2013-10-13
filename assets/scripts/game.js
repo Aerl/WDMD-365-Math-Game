@@ -6,6 +6,7 @@ window.onload = function () {
 	$("button_medium").onclick = button_medium_click;
 	$("button_hard").onclick = button_hard_click;
 	$("button_back").onclick = button_back_click;
+	$("button_main").onclick = button_back_click;
 	$("button_addRed").onclick = button_addRed_click;
 	$("button_addYellow").onclick = button_addYellow_click;
 	$("button_addGreen").onclick = button_addGreen_click;
@@ -14,7 +15,6 @@ window.onload = function () {
 	$("button_removeYellow").onclick = button_removeYellow_click;
 	$("button_removeGreen").onclick = button_removGreen_click;
 	$("button_removeBlue").onclick = button_removBlue_click;
-	$("button_submit").onclick = button_submit_click;
 	$("button_next").onclick = button_next_click;
 }
 var easy = [4,6,8];
@@ -79,7 +79,7 @@ function updateTotalTiles(){
 	$("gTotalTiles").value = total;
 	$("bTotalTiles").value = total;
 }
-function button_submit_click() {
+function button_next_click() {
 	var total =  red + yellow + green + blue;
 	var result = (mode != 3 ?
 					(((dec1== red / total) && (dec2 == yellow / total) && (dec3 == green / total)) 
@@ -93,23 +93,23 @@ function button_submit_click() {
 	
 	if(result)
 	{
-		 $("submitInfo").innerHTML = "Yay you did it!";
-		 count++;
+		 score++;
 	}
-	else
-		 $("submitInfo").innerHTML = "Sorry that is incorrect :(";
-}
-function button_next_click() {
+	
 	resetValues();
 	++count;
 	if (count>=10)
-	  {
-		$('mainScreen').style.visibility="hidden";
-		$('gameScreen').style.visibility="hidden";
-		$('scoreScreen').style.visibility="visible";
+	{
+		//$('mainScreen').style.visibility="hidden";
+		//$('gameScreen').style.visibility="hidden";
+		//$('blue').style.visibility="hidden";
+		$('gameContainer').remove();
+
+		$('scoreScreen').style.display="block";
 		$("score").innerHTML = score;
-		
-	  }
+		count = 0;
+		score = 0 ;
+	}
 	switch(mode)
 	{
 		case 1:
@@ -144,16 +144,17 @@ var button_back_click = function () {
 function navigateScreen(click) {
 	if(click == button_back_click)
 	{
-		$('mainScreen').style.visibility="visible";
-		$('gameScreen').style.visibility="hidden";
-		$('blue').style.visibility="hidden";
+		$('mainScreen').style.display="block";
+		$('gameScreen').style.display="none";
+		$('scoreScreen').style.display="none";
+		$('blue').style.display="none";
 		resetValues();
 	}
 	else
 	{
-		$('gameScreen').style.visibility="visible";
-		$('mainScreen').style.visibility="hidden";
-		$('blue').style.visibility = click == button_hard_click ? "visible" : "hidden";
+		$('gameScreen').style.display="block";
+		$('mainScreen').style.display="none";
+		$('blue').style.display = click == button_hard_click ? "block" : "none";
 		resetValues();
 	}
 }

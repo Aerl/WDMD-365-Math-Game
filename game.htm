@@ -3,7 +3,9 @@
     <head>
         <title>Fraction Fun</title>
         <link rel="stylesheet" type="text/css" href="assets/styles/template.css" />
-		<link rel="stylesheet" type="text/css" href="game.css" />
+		<link rel="stylesheet" type="text/css" href="assets/styles/game.css" />
+		<script type="text/javascript" src="assets/scripts/game.js"></script>  
+        <!--<script type="text/javascript" src="assets/scripts/jquery-2.0.3.min.js"></script>  -->
     </head>
     
     <body>
@@ -17,27 +19,27 @@
             <div id="gameContent" class="content">
 			
 				<div id="mainScreen">
-				
 					<div id="introduction">
 						<h3>Main Menu</h3>
 					</div>
-					
 					<label for="mainTitle">Choose Mode: </label>
 					<input type="button" id="button_easy" value="Easy" />
 					<input type="button" id="button_medium" value="Medium" />
 					<input type="button" id="button_hard" value="Hard" />
-				
 				</div>
 				
 				<div id="gameScreen">
-	
 					<h3>Task</h3>
 					<p id="task"/>
-					
+                    
+                    <div id="scoreScreen">
+                        <h3>You answered <span id="score"></span> out of ten questions correctly.</h3>
+                        <input type="button" id="button_main" value="Main Menu" />
+                    </div>	
+                    
 					<div id="gameContainer">
-						
+                    
 						<div id="red">
-						
 							<label>Red tiles</label>
 							<input type="text" id="redTiles" disabled="disabled"/><br />
 							<label>Write function:</label>
@@ -45,13 +47,11 @@
 							<label>/</label>
 							<input type="text" id="rTotalTiles" disabled="disabled"/><br />
 							<label>&nbsp;</label>
-							<input type="button" id="button_addRed" value="Add" />
-							<input type="button" id="button_removeRed" value="Remove" /><br />
-						
+							<input type="button" id="button_addRed" class="green" value="Add" />
+							<input type="button" id="button_removeRed" class="red" value="Remove" /><br />
 						</div>
 						
 						<div id="yellow">
-						
 							<label>Yellow tiles</label>
 							<input type="text" id="yellowTiles" disabled="disabled"/><br />
 							<label>Write function:</label>
@@ -59,13 +59,11 @@
 							<label>/</label>
 							<input type="text" id="yTotalTiles" disabled="disabled"/><br />
 							<label>&nbsp;</label>
-							<input type="button" id="button_addYellow" value="Add" />
-							<input type="button" id="button_removeYellow" value="Remove" /><br />
-						
+							<input type="button" id="button_addYellow" class="green" value="Add" />
+							<input type="button" id="button_removeYellow" class="red" value="Remove" /><br />
 						</div>
 						
 						<div id="green">
-						
 							<label>Green tiles</label>
 							<input type="text" id="greenTiles" disabled="disabled"/><br />
 							<label>Write function:</label>
@@ -73,13 +71,11 @@
 							<label>/</label>
 							<input type="text" id="gTotalTiles" disabled="disabled"/><br />
 							<label>&nbsp;</label>
-							<input type="button" id="button_addGreen" value="Add" />
-							<input type="button" id="button_removeGreen" value="Remove" /><br />
-						
+							<input type="button" id="button_addGreen" class="green" value="Add" />
+							<input type="button" id="button_removeGreen" class="red" value="Remove" /><br />
 						</div>
 						
-						<div id="blue">
-						
+						<div id="blue">					
 							<label>blue tiles</label>
 							<input type="text" id="blueTiles" disabled="disabled"/><br />
 							<label>Write function:</label>
@@ -87,41 +83,22 @@
 							<label>/</label>
 							<input type="text" id="bTotalTiles" disabled="disabled"/><br />
 							<label>&nbsp;</label>
-							<input type="button" id="button_addBlue" value="Add" />
-							<input type="button" id="button_removeBlue" value="Remove" /><br />
-						
+							<input type="button" id="button_addBlue" class="green" value="Add" />
+							<input type="button" id="button_removeBlue" class="red" value="Remove" /><br />
 						</div>
-					
 					</div>
 					
-					<div>
-					
-						 <input type="button" id="button_submit" value="Submit" />
+					<div class="right">
 						 <input type="button" id="button_next" value="Next" />
-						 <input type="button" id="button_back" value="Choose Mode" />
-					
+						 <input type="button" id="button_back" class="gray" value="Choose Mode" />
 					</div>
-				
-				</div> 
-				
-				<div id="scoreScreen">
-				
-						<div id="congrats">
-							<h3>Congratulations, you made it!</h3>
-						</div>
-						
-						<p>You answered <span id="score"></span> out of ten questions correctly.</p>
-						<input type="button" id="button_main" value="Main Menu" />
-				
-				</div>				
+					<div class="clearFloat"></div>
+				</div> 		
 			
 			</div><!-- #gameContent -->
 
 			<footer>Created in Tim Krause's Fall 2013 Game Design class by Krause Krushers.</footer>
 		
 		</div><!-- #container -->
-        
-	<script type="text/javascript" src="game.js"></script> 
-	
     </body>
 </html>
