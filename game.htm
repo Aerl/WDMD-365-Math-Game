@@ -5,7 +5,18 @@
         <link rel="stylesheet" type="text/css" href="assets/styles/template.css" />
 		<link rel="stylesheet" type="text/css" href="assets/styles/game.css" />
 		<script type="text/javascript" src="assets/scripts/game.js"></script>  
-        <!--<script type="text/javascript" src="assets/scripts/jquery-2.0.3.min.js"></script>  -->
+		<script type="text/javascript" src="assets/scripts/game.js"></script>  
+         <!--plugin-->
+		<!-- jQuery / jQuery UI -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+		<!-- jQuery Touch Punch - Enable Touch Drag and Drop -->
+		<script src="assets/scripts/core/vendor/jquery.touch-punch.min.js"></script>
+
+		<!-- jQuery.Shapeshift -->
+		<script src="assets/scripts/core/jquery.shapeshift.js"></script>
+          <!--plugin-->
     </head>
     
     <body>
@@ -13,92 +24,68 @@
             <header class="content">
                 <h1>Fraction Fun</h1>
                 <h2>Instructions</h2>
-                <p>Select a game mode and then choose the tiles to match the fractions in the task.</p>  
+                <p>After selecting a reward and a game mode, you will be presented with a list of fractions and some colored tiles. Click and drag tiles from the "Tile Box" into the "My Solution" box until your collection of tiles matches <strong>each</strong> of the fractions provided. Whatever reward you choose will get better each time you get a task correct. Try to get all 10 right for the best reward!</p>
+                <p><strong>Note:</strong> You'll only have one chance at each problem per game, so be sure to double check before clicking "Next"!
             </header>
 
             <div id="gameContent" class="content">
 			
 				<div id="mainScreen">
 					<div id="introduction">
-						<h3>Main Menu</h3>
+						<h3>Before we get started...</h3>
 					</div>
-					<label for="mainTitle">Choose Mode: </label>
+                    <p>What do you want to create? Select a reward: </p>
+                    <input type="radio" id="rewardFlower" name="reward" value="flower" checked /><label>Flower</label><br/>
+                    <input type="radio" id="rewardRobot" name="reward" value="robot" /><label>Robot</label> 
+                    <br/><br/>
+					<p>Select a difficulty: </p>
 					<input type="button" id="button_easy" value="Easy" />
 					<input type="button" id="button_medium" value="Medium" />
 					<input type="button" id="button_hard" value="Hard" />
 				</div>
 				
 				<div id="gameScreen">
-					<h3>Task</h3>
-					<p id="task"/>
-                    
+                    <div id="rewardsArea" class="right">
+                        <img id="rewardPicture" />
+                        <p id="results"></p>
+                    </div>
+
                     <div id="scoreScreen">
-                        <h3>You answered <span id="score"></span> out of ten questions correctly.</h3>
+                        <h3>You answered <span id="score"></span> out of 10 questions correctly.</h3>
                         <input type="button" id="button_main" value="Main Menu" />
                     </div>	
-                    
-					<div id="gameContainer">
-                    
-						<div id="red">
-							<label>Red tiles</label>
-							<input type="text" id="redTiles" disabled="disabled"/><br />
-							<label>Write function:</label>
-							<input type="number" id="redNumerator" value="0" />
-							<label>/</label>
-							<input type="text" id="rTotalTiles" disabled="disabled"/><br />
-							<label>&nbsp;</label>
-							<input type="button" id="button_addRed" class="green" value="Add" />
-							<input type="button" id="button_removeRed" class="red" value="Remove" /><br />
-						</div>
-						
-						<div id="yellow">
-							<label>Yellow tiles</label>
-							<input type="text" id="yellowTiles" disabled="disabled"/><br />
-							<label>Write function:</label>
-							<input type="number" id="yellowNumerator" value="0"/>
-							<label>/</label>
-							<input type="text" id="yTotalTiles" disabled="disabled"/><br />
-							<label>&nbsp;</label>
-							<input type="button" id="button_addYellow" class="green" value="Add" />
-							<input type="button" id="button_removeYellow" class="red" value="Remove" /><br />
-						</div>
-						
-						<div id="green">
-							<label>Green tiles</label>
-							<input type="text" id="greenTiles" disabled="disabled"/><br />
-							<label>Write function:</label>
-							<input type="number" id="greenNumerator" value="0"/>
-							<label>/</label>
-							<input type="text" id="gTotalTiles" disabled="disabled"/><br />
-							<label>&nbsp;</label>
-							<input type="button" id="button_addGreen" class="green" value="Add" />
-							<input type="button" id="button_removeGreen" class="red" value="Remove" /><br />
-						</div>
-						
-						<div id="blue">					
-							<label>blue tiles</label>
-							<input type="text" id="blueTiles" disabled="disabled"/><br />
-							<label>Write function:</label>
-							<input type="number" id="blueNumerator" value="0"/>
-							<label>/</label>
-							<input type="text" id="bTotalTiles" disabled="disabled"/><br />
-							<label>&nbsp;</label>
-							<input type="button" id="button_addBlue" class="green" value="Add" />
-							<input type="button" id="button_removeBlue" class="red" value="Remove" /><br />
-						</div>
+
+					<div id="gameContainer" class="left">
+                        <h3 id="taskNumber">Task 1 / 10</h3>
+                        <p id="task"></p>
+                        <br/>
+
+                        <h4>Tile Box</h4>
+                        <div class="TContainer clones tileBox">
+                            <div class="redT"></div>
+                            <div class="yellowT"></div>
+                            <div class="blueT"></div>
+                            <div class="greenT"></div>
+                        </div>
+                        <h4>My Solution</h4>
+                        <div class="TContainer droparea">
+                            <div class="redT"></div>
+                        </div>
+
+                        <div class="TContainer deleteContainer"></div> 
+                        <div class="clearFloat"></div>
+                        <div class="right">
+                             <input type="button" id="button_next" value="Next" />
+                        </div>
 					</div>
-					
-					<div class="right">
-						 <input type="button" id="button_next" value="Next" />
-						 <input type="button" id="button_back" class="gray" value="Choose Mode" />
-					</div>
+
 					<div class="clearFloat"></div>
-				</div> 		
-			
+                    <br/><br/><br/>
+                    <input type="button" id="button_back" class="gray" value="Start Over" />
+				</div>
 			</div><!-- #gameContent -->
 
-			<footer>Created in Tim Krause's Fall 2013 Game Design class by Krause Krushers.</footer>
-		
+			<footer>Created in Tim Krause's Fall 2013 Game Design class by The Krause Krushers.</footer>
 		</div><!-- #container -->
     </body>
 </html>

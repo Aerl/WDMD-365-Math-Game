@@ -1,21 +1,13 @@
-var $ = function (id) {
+var select = function (id) {
     return document.getElementById(id); 
 }
 window.onload = function () {
-	$("button_easy").onclick = button_easy_click;
-	$("button_medium").onclick = button_medium_click;
-	$("button_hard").onclick = button_hard_click;
-	$("button_back").onclick = button_back_click;
-	$("button_main").onclick = button_back_click;
-	$("button_addRed").onclick = button_addRed_click;
-	$("button_addYellow").onclick = button_addYellow_click;
-	$("button_addGreen").onclick = button_addGreen_click;
-	$("button_addBlue").onclick = button_addBlue_click;
-	$("button_removeRed").onclick = button_removeRed_click;
-	$("button_removeYellow").onclick = button_removeYellow_click;
-	$("button_removeGreen").onclick = button_removGreen_click;
-	$("button_removeBlue").onclick = button_removBlue_click;
-	$("button_next").onclick = button_next_click;
+	select("button_easy").onclick = button_easy_click;
+	select("button_medium").onclick = button_medium_click;
+	select("button_hard").onclick = button_hard_click;
+	select("button_back").onclick = button_back_click;
+	select("button_main").onclick = button_back_click;
+	select("button_next").onclick = button_next_click;
 }
 var easy = [4,6,8];
 var medium = [6,8,9,10,16];
@@ -33,86 +25,52 @@ var count = 0;
 var score = 0;
 var isFlower = true;
 var isRobot = false;
+var questions = [];
 
 //--------game screen buttons click-------
-var button_addRed_click = function() {
-	red++;
-	$("redTiles").value = red; 
-	updateTotalTiles();
-}
-var button_addYellow_click = function() {
-	yellow++;
-	$("yellowTiles").value = yellow; 
-	updateTotalTiles();
-}
-var button_addGreen_click = function() {
-	green++;
-	$("greenTiles").value = green; 
-	updateTotalTiles();
-}
-var button_addBlue_click = function() {
-	blue++;
-	$("blueTiles").value = blue; 
-	updateTotalTiles();
-}
-var button_removeRed_click = function() {
-	red--;
-	$("redTiles").value = red; 
-	updateTotalTiles();
-}
-var button_removeYellow_click = function() {
-	yellow--;
-	$("yellowTiles").value = yellow; 
-	updateTotalTiles();
-}
-var button_removGreen_click = function() {
-	green--;
-	$("greenTiles").value = green; 
-	updateTotalTiles();
-}
-var button_removBlue_click = function() {
-	blue--;
-	$("blueTiles").value = blue; 
-	updateTotalTiles();
-}
-function updateTotalTiles(){
-	var total =  red + yellow + green + blue;
-	$("rTotalTiles").value = total;
-	$("yTotalTiles").value = total;
-	$("gTotalTiles").value = total;
-	$("bTotalTiles").value = total;
-}
 function button_next_click() {
+	red = $(".droparea > .redT").length;
+	blue = $(".droparea > .blueT").length;
+	yellow = $(".droparea > .yellowT").length;
+	green = $(".droparea > .greenT").length;
 	var total =  red + yellow + green + blue;
 	var result = (mode != 3 ?
-					(((dec1== red / total) && (dec2 == yellow / total) && (dec3 == green / total)) 
-					 && (red == $("redNumerator").value && yellow == $("yellowNumerator").value && green == $("greenNumerator").value)) 
+					(((dec1== red / total) && (dec2 == yellow / total) && (dec3 == green / total))) 
 					 ? true :false
 				   : 
-					(((dec1== red / total) && (dec2 == yellow / total) && (dec3 == green / total) && (dec4 == blue / total)) 
-					 && (red == $("redNumerator").value && yellow == $("yellowNumerator").value && green == $("greenNumerator").value && blue == $("blueNumerator").value)) 
+					(((dec1== red / total) && (dec2 == yellow / total) && (dec3 == green / total) && (dec4 == blue / total))) 
 					 ? true :false
 				   );
 	
 	if(result)
 	{
+		$('#results').html("Good job! You got the last task correct!");
+		//alert('correct');
 		 score++;
+	} else {
+		$('#results').html("Sorry, you got the last task incorrect. Make sure " +
+								"each color matches the fraction given!");
+		//alert('incorrect');
 	}
 	
 	resetValues();
 	++count;
+
+	$('#taskNumber').html('Task ' + (count+1) + ' / 10');
+	changePicture();
+
 	if (count>=10)
 	{
-		//$('mainScreen').style.visibility="hidden";
-		//$('gameScreen').style.visibility="hidden";
-		//$('blue').style.visibility="hidden";
-		$('gameContainer').remove();
-
-		$('scoreScreen').style.display="block";
-		$("score").innerHTML = score;
+		select('gameContainer').style.display="none";
+		select('scoreScreen').style.display="block";
+		select("score").innerHTML = score;
+		
 		count = 0;
-		score = 0 ;
+		score = 0;
+
+		$('#taskNumber').html('Task 1 / 10');
 	}
+	
 	switch(mode)
 	{
 		case 1:
@@ -124,25 +82,27 @@ function button_next_click() {
 		default:
 		  generateHardFractions();
 	}
-	changePicture();
 }
 //--------navigations click-------
 var button_easy_click = function () {
 	navigateScreen(button_easy_click);
 	mode = 1;
 	generateEasyFractions();
+	setReward();
 	changePicture();
 }
 var button_medium_click = function () {
 	navigateScreen(button_medium_click);
 	mode = 2;
 	generateMediumFractions();
+	setReward();
 	changePicture();
 }
 var button_hard_click = function () {
 	navigateScreen(button_hard_click);
 	mode = 3;
 	generateHardFractions();
+	setReward();
 	changePicture();
 }
 var button_back_click = function () {
@@ -151,18 +111,32 @@ var button_back_click = function () {
 function navigateScreen(click) {
 	if(click == button_back_click)
 	{
-		$('mainScreen').style.display="block";
-		$('gameScreen').style.display="none";
-		$('scoreScreen').style.display="none";
-		$('blue').style.display="none";
+		select('mainScreen').style.display="block";
+		select('gameScreen').style.display="none";
+		select('scoreScreen').style.display="none";
+		$('#taskNumber').html('Task 1 / 10');
 		resetValues();
 	}
 	else
 	{
-		$('gameScreen').style.display="block";
-		$('mainScreen').style.display="none";
-		$('blue').style.display = click == button_hard_click ? "block" : "none";
+		select('gameScreen').style.display="block";
+		select('mainScreen').style.display="none";
+		select('gameContainer').style.display="block";
 		resetValues();
+		$(document).ready(function() {
+		  $(".clones").shapeshift({
+			  dragClone: true,
+			  enableCrossDrop: false
+		  });
+		  $(".droparea").shapeshift({
+			//colWidth: 100
+		  });
+		  $(".deleteContainer").shapeshift({
+			autoHeight: false,
+			colWidth: 80,
+			enableTrash: true
+		  });
+		})
 	}
 }
 //--------help methods-------
@@ -171,34 +145,68 @@ function resetValues(){
 		yellow = 0;
 		green = 0;
 		blue = 0;
-		total = 0;
-		$("redNumerator").value = 0;
-		$("yellowNumerator").value = 0;
-		$("greenNumerator").value = 0;
-		$("blueNumerator").value = 0;
-		$("redTiles").value = 0; 
-		$("yellowTiles").value = 0;
-		$("greenTiles").value = 0; 
-		$("blueTiles").value = 0;
-		$("rTotalTiles").value = 0;
-		$("yTotalTiles").value = 0;
-		$("gTotalTiles").value = 0;
-		$("bTotalTiles").value = 0;
+		total = 0;	
+}
+
+function setReward() {
+	switch($('input[name=reward]:checked').val()) {
+		case "flower":
+			isFlower=true;
+			isRobot=false;
+			break;
+		case "robot":
+			isFlower=false;
+			isRobot=true;
+			break;
+		default:
+			isFlower=true;
+			isRobot=false;
+			break;
+	};
+}
+
+function changePicture() {
+	var imgSrc = "images/";	
+	if(isFlower){		
+		imgSrc = imgSrc + "flower";
+	}
+	else if(isRobot)
+	{
+		imgSrc = imgSrc + "robot";
+	}
+	imgSrc = imgSrc + score + ".png";	
+	document.getElementById("rewardPicture").src=imgSrc;
 }
 //--------math functions-------
 
 //Sets the value of the decimals
-function generateThreeDecimals(denominator)
+function generateThreeDecimals(mode)
 {
+	var q;
+	var denominator;
+	do{
+		if(mode==1)
+			denominator = randomNumberEasy();
+		else
+			denominator = randomNumberMedium();
+			
 	num1 = Math.floor(((Math.random()) * (denominator-2))+1)
 	num2 = Math.floor(((Math.random()) * (denominator-1-num1))+1)
 	num3 = denominator - num1 - num2;
 	dec1 = num1/denominator;
 	dec2 = num2/denominator;
 	dec3 = num3/denominator;
-}
-function generateFourDecimals(denominator)
-{
+	q = new question(dec1,dec2,dec3,0);
+	}while(!questionUnique(q))
+	questions.push(q);
+	}
+	function generateFourDecimals()
+	{
+	var q;
+	var denominator;
+	do{
+	denominator = randomNumberHard();
+	
 	num1 = Math.floor(((Math.random()) * (denominator-3))+1)
 	num2 = Math.floor(((Math.random()) * (denominator-2-num1))+1)
 	num3 = Math.floor(((Math.random()) * (denominator-1-num1-num2))+1)
@@ -207,26 +215,29 @@ function generateFourDecimals(denominator)
 	dec2 = num2/denominator;
 	dec3 = num3/denominator;
 	dec4 = num4/denominator;
+	q = new question(dec1,dec2,dec3,dec4);
+	}while(!questionUnique(q))
+	questions.push(q);
 }
 
 //These three print out the fractions in the textboxes
 function generateEasyFractions()
 {
-	generateThreeDecimals(randomNumberEasy());
+	generateThreeDecimals(1);
 	
-	$("task").innerHTML = "Red: " + fraction(dec1) + ", Yellow: " + fraction(dec2) + ", Green: " + fraction(dec3);
+	select("task").innerHTML = "Red: " + fraction(dec1) + ", Yellow: " + fraction(dec2) + ", Green: " + fraction(dec3);
 }
 function generateMediumFractions()
 {
-	generateThreeDecimals(randomNumberMedium());
+	generateThreeDecimals(2);
 	
-	$("task").innerHTML = "Red: " + fraction(dec1) + ", Yellow: " + fraction(dec2) + ", Green: " + fraction(dec3);
+	select("task").innerHTML = "Red: " + fraction(dec1) + ", Yellow: " + fraction(dec2) + ", Green: " + fraction(dec3);
 }
 function generateHardFractions()
 {
-	generateFourDecimals(randomNumberHard());
+	generateFourDecimals();
 	
-	$("task").innerHTML = "Red: " + fraction(dec1) + ", Yellow: " + fraction(dec2) + ", Green: " + fraction(dec3) + ", Blue: " + fraction(dec4);
+	select("task").innerHTML = "Red: " + fraction(dec1) + ", Yellow: " + fraction(dec2) + ", Green: " + fraction(dec3) + ", Blue: " + fraction(dec4);
 }
 
 //These functions create the random numbers for the arrays.
@@ -273,15 +284,31 @@ function fraction(x) {
     return h1+"/"+k1;
 }
 
-function changePicture() {
-	var imgSrc = "images/";	
-	if(isFlower){		
-		imgSrc = imgSrc + "flower";
-	}
-	else if(isRobot)
-	{
-		imgSrc = imgSrc + "robot";
-	}	
-	imgSrc = imgSrc + score + ".png";	
-	document.getElementById("rewardPicture").src=imgSrc;
+function question(dec1,dec2,dec3,dec4)
+{
+	this.dec1 = dec1;
+	this.dec2 = dec2;
+	this.dec3 = dec3;
+	this.dec4 = dec4;
 }
+
+function questionUnique(q1)
+{
+	if(questions.length%10 == 0)
+		questions = [];
+		
+	var unique = true;
+	for(var i=0; i<questions.length; i++)
+	{
+	if(q1.dec1 == questions[i].dec1)
+		if(q1.dec2 == questions[i].dec2)
+		if(q1.dec3 == questions[i].dec3)
+		if(q1.dec4 == questions[i].dec4)
+		{
+			unique = false;
+			break;
+		}
+	}
+	return unique;
+}
+
