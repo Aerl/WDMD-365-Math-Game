@@ -1,7 +1,38 @@
-#gameScreen, #scoreScreen{
-	display:none;
-}
+#gameScreen, #scoreScreen{ display:none; }
 
 .left { float: left; }
 .right { float: right; }
 .clearFloat { clear: both; height: 1px; width: 1px; margin: 0; }
+
+.TContainer {
+  border: 1px solid #CCC;
+  width: 720px;
+  position:relative;
+  margin-bottom: 25px; 
+}
+
+.TContainer > div {
+  background: rgba(0,0,0,0.05);
+  height: 75px;
+  width: 75px;
+  position: absolute; 
+}
+
+.tileBox { background: #f0f0f0; }
+
+.TContainer > .ss-placeholder-child {
+  border: 1px dashed #b0b0b0;  
+}
+
+.deleteContainer { height: 100px; width: 100px; float: right; }
+
+.TContainer > .greenT{ background: url('../../images/greentile.png') #42a25b no-repeat; }
+.TContainer > .redT{ background: url('../../images/redtile.png') #9c1f1f no-repeat; }
+.TContainer > .yellowT { background: url('../../images/yellowtile.png') #e9ad2b no-repeat; }
+.TContainer > .blueT { background: url('../../images/bluetile.png') #2f64c5 no-repeat; }
+
+#rewardsArea {
+    font-size: 1.15em;
+    color: #4a4a4a;
+    width: 290px;
+}
