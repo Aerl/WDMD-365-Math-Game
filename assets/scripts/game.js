@@ -71,6 +71,9 @@ function button_next_click() {
 		$('#taskNumber').html('Task 1 / 10');
 	}
 	
+	$(".droparea > .ss-active-child:gt(0)").remove();
+	$(".droparea").trigger("ss-rearrange");
+	
 	switch(mode)
 	{
 		case 1:
