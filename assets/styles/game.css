@@ -20,11 +20,14 @@
 
 .tileBox { background: #f0f0f0; }
 
+.deleteContainer { width: 20%; float: right; background: url('../../images/trashicon.png') no-repeat; background-size: 90%;}
+.tileBox { width: 80%; float: left;}
+
 .TContainer > .ss-placeholder-child {
   border: 1px dashed #b0b0b0;  
 }
 
-.deleteContainer { height: 100px; width: 100px; float: right; }
+.deleteContainer { height: 100px; width: 115px; float: right; }
 
 .TContainer > .greenT{ background: url('../../images/greentile.png') #42a25b no-repeat; }
 .TContainer > .redT{ background: url('../../images/redtile.png') #9c1f1f no-repeat; }
@@ -36,3 +39,6 @@
     color: #4a4a4a;
     width: 290px;
 }
+
+#title_tilebox { height: 0px;}
+#title_trashcan { padding-left: 610px; }
